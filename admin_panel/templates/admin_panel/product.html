@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Costomer home Page</h1>
+    <h1>product Page</h1>
+
+    <ol>
+        {% for item in all_product %}
+        <li>{{item}}</li>
+        {% endfor %}
+    </ol>
 </body>
 </html>

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'admin_panel',
-    'ecommars'
+    'customer'
 ]
 
 MIDDLEWARE = [
