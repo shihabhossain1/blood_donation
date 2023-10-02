@@ -6,6 +6,8 @@ class Product(models.Model):
     price = models.IntegerField()
     exprire_date = models.DateField(blank=True, null=True)
 
+    image = models.FileField(upload_to='product/image', blank=True, null=True)
+
     description = models.TextField()
 
     stock = models.BooleanField(default=True)

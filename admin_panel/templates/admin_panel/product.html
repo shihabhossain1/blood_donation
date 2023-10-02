@@ -1,17 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
 </head>
 <body>
-    <h1>product Page</h1>
 
-    <ol>
-        {% for item in all_product %}
-        <li>{{item}}</li>
-        {% endfor %}
-    </ol>
+<h1>Add new product</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image" required><br><br>
+
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price" required><br><br>
+
+    <label for="expire_date">Expiration Date:</label>
+    <input type="date" id="expire_date" name="expire_date" required><br><br>
+
+    <label for="stock">Stock:</label>
+    <select id="stock" name="stock" required>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<h2>Product</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Image</th>
+    <th>Price</th>
+    <th>Expire date</th>
+    <th>Stock</th>
+    <th>Added on</th>
+  </tr>
+  {% for item in all_product %}
+  <tr>
+    <td>{{ item.name }}</td>
+
+
+    <td>
+      {% if item.image %}
+  
+        {% if image == jpg %}
+  
+          <img src="{{ item.image.url }}" height="100px" width="130px" alt="">
+        {% endif %}
+  
+      {% if image == mp4 %}
+        <video width="130" height="100" controls>
+          <source src="{{ item.image.url }}" >
+        </video>
+      {% endif %}
+  
+      {% else %}
+        <img src="/media/product/image/placeholder.png" height="100px" width="130px" alt="">
+      {% endif %}
+    </td> 
+  
+
+    <td>{{ item.price }}</td>
+    <td>{{ item.exprire_date }}</td>
+    <td>
+        {% if item.stock %}
+            Yes
+        {% else %}
+            No 
+        {% endif %}
+    </td>
+    <td>{{ item.added_on }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
 </body>
 </html>
+
